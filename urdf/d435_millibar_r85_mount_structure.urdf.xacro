@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="d435_millibar_r85_mount_structure" params="prefix">
+
+  <link name="${prefix}d435_mount_link">
+    <inertial>
+      <origin xyz="-0.001999 0.027791 0.010919" rpy="0 0 0" />
+      <mass value="0.14067" />
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://d435_millibar_r85_mount_structure/meshes/d435_mount_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://d435_millibar_r85_mount_structure/meshes/d435_mount_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="${prefix}d435">
+    <inertial>
+      <origin xyz="1.9581E-18 1.3878E-17 0.0125" rpy="0 0 0" />
+      <mass value="0.052543" />
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://d435_millibar_r85_mount_structure/meshes/d435.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://d435_millibar_r85_mount_structure/meshes/d435.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="${prefix}d435_mount_to_d435_joint" type="fixed">
+    <origin xyz="0 -0.013 0.09" rpy="1.5708 0 0" />
+    <parent link="${prefix}d435_mount_link" />
+    <child link="${prefix}d435" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <link name="${prefix}millibar_adapters_link">
+    <inertial>
+      <origin xyz="-0.0012683 -0.00055451 0.019186" rpy="0 0 0" />
+      <mass value="0.1326" />
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://d435_millibar_r85_mount_structure/meshes/millibar_adapters_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://d435_millibar_r85_mount_structure/meshes/millibar_adapters_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="${prefix}d435_mount_to_millibar_adapters_joint" type="fixed">
+    <origin xyz="0 -0.019 0" rpy="1.5708 -1.6401E-05 1.0043E-21" />
+    <parent link="${prefix}d435_mount_link" />
+    <child link="${prefix}millibar_adapters_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <link name="${prefix}r85_network_adapter_link">
+    <inertial>
+      <origin xyz="-0.0013686 8.6025E-05 -0.0012658" rpy="0 0 0" />
+      <mass value="0.039599" />
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://d435_millibar_r85_mount_structure/meshes/r85_network_adapter_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79608 0.82353 0.93725 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://d435_millibar_r85_mount_structure/meshes/r85_network_adapter_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="${prefix}millibar_adapters_to_r85_network_adapter_joint" type="fixed">
+    <origin xyz="0 0 0.045447" rpy="0 0 -5.6E-05" />
+    <parent link="millibar_adapters_link" />
+    <child link="r85_network_adapter_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <link name="${prefix}tcp_link"/>
+
+  <joint name="${prefix}tcpip_adapter_to_tcp_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.14" rpy="0 0 0" />
+    <parent link="${prefix}r85_network_adapter_link" />
+    <child link="${prefix}tcp_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  </xacro:macro>
+</robot>
